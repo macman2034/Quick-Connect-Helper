@@ -3,7 +3,7 @@
   "guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "name": "Quick Connect Helper",
   "description": "Adds a convenient Quick Connect button to the web interface for easy device pairing with one-click code generation.",
-  "owner": "YOUR_GITHUB_USERNAME",
+  "owner": "macman2034",
   "overview": "Quick Connect Helper adds a dedicated button to Jellyfin's navigation bar, allowing users to instantly generate Quick Connect codes without navigating through settings. Perfect for quickly pairing new devices with your Jellyfin server.",
   "versions": [
     {
@@ -15,4 +15,5 @@
       "timestamp": "2025-10-27T00:00:00Z"
     }
   ]
+
 }
