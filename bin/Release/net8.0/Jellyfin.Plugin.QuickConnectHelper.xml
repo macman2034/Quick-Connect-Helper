@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jellyfin.Plugin.QuickConnectHelper</name>
+    </assembly>
+    <members>
+        <member name="T:Jellyfin.Plugin.QuickConnectHelper.Api.QuickConnectHelperController">
+            <summary>
+            Controller for serving the Quick Connect Helper client script.
+            </summary>
+        </member>
+        <member name="M:Jellyfin.Plugin.QuickConnectHelper.Api.QuickConnectHelperController.#ctor(Microsoft.Extensions.Logging.ILogger{Jellyfin.Plugin.QuickConnectHelper.Api.QuickConnectHelperController})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Jellyfin.Plugin.QuickConnectHelper.Api.QuickConnectHelperController"/> class.
+            </summary>
+            <param name="logger">Instance of the <see cref="T:Microsoft.Extensions.Logging.ILogger`1"/> interface.</param>
+        </member>
+        <member name="M:Jellyfin.Plugin.QuickConnectHelper.Api.QuickConnectHelperController.GetClientScript">
+            <summary>
+            Serves the Quick Connect Helper client script.
+            </summary>
+            <returns>The JavaScript file content.</returns>
+        </member>
+    </members>
+</doc>
