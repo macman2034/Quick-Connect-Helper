@@ -1,19 +1,19 @@
 # Jellyfin Quick Connect Helper Plugin
 
-A Jellyfin plugin that adds a convenient Quick Connect button to the web interface, making it easy to generate and display Quick Connect codes for device pairing.
+A Jellyfin plugin that adds a convenient Quick Connect button to the web interface, making it easy for admins to log devices in as any user with minimal disruption to their navigating or playback.
 
 ## Features
 
 - 🔘 **Quick Connect Button** - Adds a dedicated button in the top-right navigation bar
 - 🔢 **One-Click Code Generation** - Generate Quick Connect codes instantly without navigating to settings
-- 📱 **Easy Device Pairing** - Display codes directly in the interface for quick device authentication
+- 📱 **Easy Device Pairing** - Admins can simply input codes directly in the popup to quickly auth users devices on their behalf without passwords
 - 🔄 **Real-time Status** - Shows when Quick Connect is disabled with helpful prompts
 - 🐳 **Docker Compatible** - Works with both Docker containers and native installations
 - 🎨 **Seamless Integration** - Matches Jellyfin's native UI design
 
 ## Screenshots
 
-The plugin adds a Quick Connect button (📱 icon) to the top-right corner of your Jellyfin interface, next to the search and user icons. Clicking it instantly generates a Quick Connect code that you can use to pair devices.
+The plugin adds a Quick Connect button (📱 icon) to the top-right corner of your Jellyfin interface, next to the search and user icons. Clicking it opens the small popup where you select the username you need logged in and input the 6 digit Quick Connect code and hit Authorize.
 
 ## Compatibility
 
@@ -63,16 +63,17 @@ Once added to the official Jellyfin plugin repository, you'll be able to install
    - Go to **Dashboard → Quick Connect**
    - Toggle **Enable Quick Connect** to ON
 
-2. **Generate a Code**:
-   - Click the Quick Connect button (📱 icon) in the top-right corner
-   - A dialog will appear with a 6-digit code
-   - Use this code to pair your device
+2. **When a User Needs Help Logging In**:
+   - Have the user open their Jellyfin app and select "Quick Connect"
+   - The app will display a 6-digit code
+   - The Admin will Click the Quick Connect button (🔒 icon) in the top-right corner of your Jellyfin web interface
+   - A small overlay will appear
 
-3. **Pair Your Device**:
-   - Open your Jellyfin app on any device
-   - When prompted to sign in, select "Quick Connect"
-   - Enter the code displayed in the web interface
-   - Your device will be automatically authenticated
+3. **Complete the Authentication**:
+   - Select the user from the dropdown menu
+   - Enter the 6-digit code the user is seeing on their device
+   - Click submit
+   - Within a few seconds you should see a green confirmation message or red failure and the popup should close itself.
 
 ## Configuration
 
@@ -86,8 +87,8 @@ Currently, there are no configuration options needed - the plugin works out of t
 The plugin:
 1. Injects a client-side script into Jellyfin's web interface
 2. Adds a Quick Connect button to the navigation bar
-3. Uses Jellyfin's native Quick Connect API to generate codes
-4. Displays codes in a modal dialog
+3. Provides an intuitive overlay interface for admins to assist with Quick Connect authentication
+4. Uses Jellyfin's native Quick Connect API to authorize codes entered and allow admins to help authorize any users devices without leaving the page or video they are on.
 5. Automatically detects and works with both Docker and native installations
 
 ## Development
@@ -130,6 +131,30 @@ jellyfin-plugin-quickconnecthelper/
 2. **Check plugin is loaded**: Look for `[QuickConnectHelper]` messages in browser console (F12)
 3. **Verify installation**: Check that the DLL exists in the plugins directory
 4. **Check server logs**: Look for "Quick Connect Helper" in Jellyfin logs
+
+### File Permissions Issue
+
+If the plugin button doesn't appear after installation and clearing cache, you may need to check the permissions on Jellyfin's `index.html` file:
+
+1. **Locate the index.html file**:
+   - Native installation: typically `/usr/share/jellyfin/web/index.html`
+   - Docker installation: typically `/jellyfin/jellyfin-web/index.html`
+
+2. **Check current permissions**:
+   ```bash
+   ls -l /path/to/index.html
+   ```
+
+3. **If permissions are too restrictive** (e.g., `700`), update them:
+   ```bash
+   chmod 755 /path/to/index.html
+   ```
+   Or if you continue to have issues:
+   ```bash
+   chmod 777 /path/to/index.html
+   ```
+
+   **Note**: The Jellyfin stock installation sometimes sets restrictive permissions on this file, which can prevent plugins from injecting their scripts properly. The appropriate permission level depends on your specific setup and security requirements.
 
 ### Quick Connect Disabled Message
 
