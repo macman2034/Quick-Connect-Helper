@@ -1,0 +1,12 @@
+---
+name: "Quick Connect Helper"
+guid: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+version: "1.0.0.0"
+targetAbi: "10.10.0.0"
+framework: "net8.0"
+owner: "YourName"
+overview: "Helps admins quickly access Quick Connect for any user"
+description: "Adds a convenient interface for administrators to quickly navigate to any user's Quick Connect settings without going through multiple dashboard menus."
+category: "General"
+artifacts:
+  - "Jellyfin.Plugin.QuickConnectHelper.dll"

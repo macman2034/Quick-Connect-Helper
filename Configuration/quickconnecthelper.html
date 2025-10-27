@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Quick Connect Helper</title>
+</head>
+<body>
+    <div id="QuickConnectHelperPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select">
+        <div data-role="content">
+            <div class="content-primary">
+                <div class="verticalSection">
+                    <div class="sectionTitleContainer flex align-items-center">
+                        <h2 class="sectionTitle">Quick Connect Helper</h2>
+                    </div>
+                    
+                    <div class="paperList" style="padding: 1em;">
+                        <p>Select a user to help them set up Quick Connect for password recovery:</p>
+                        
+                        <div class="selectContainer" style="margin: 20px 0;">
+                            <label class="selectLabel" for="userSelect">Select User:</label>
+                            <select is="emby-select" id="userSelect" name="userSelect" class="emby-select-withcolor emby-select">
+                                <option value="">Loading users...</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <button id="goButton" is="emby-button" type="button" class="raised button-submit block emby-button" disabled>
+                                <span>Go to Quick Connect</span>
+                            </button>
+                        </div>
+                        
+                        <div id="status" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
+                        
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #444;">
+                            <h3>Manual User ID Entry</h3>
+                            <p style="color: #aaa; margin-top: 10px;">If you know the user ID, you can enter it directly:</p>
+                            <div class="inputContainer">
+                                <input id="manualUserId" name="manualUserId" type="text" is="emby-input" placeholder="Enter User ID" />
+                            </div>
+                            <button id="manualGoButton" is="emby-button" type="button" class="raised button-submit emby-button" style="margin-top: 10px;">
+                                <span>Go</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var QuickConnectHelper = {
+                pluginUniqueId: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
+            };
+
+            document.querySelector('#QuickConnectHelperPage')
+                .addEventListener('pageshow', function() {
+                    console.log('[QCH] Page show event fired');
+                    
+                    var userSelect = document.querySelector('#userSelect');
+                    var goButton = document.querySelector('#goButton');
+                    var manualUserId = document.querySelector('#manualUserId');
+                    var manualGoButton = document.querySelector('#manualGoButton');
+                    var statusDiv = document.querySelector('#status');
+                    
+                    function showStatus(msg, isError) {
+                        console.log('[QCH]', isError ? 'ERROR:' : 'INFO:', msg);
+                        if (statusDiv) {
+                            statusDiv.textContent = msg;
+                            statusDiv.style.color = isError ? '#ff5252' : '#4caf50';
+                            statusDiv.style.display = 'block';
+                            if (!isError) {
+                                setTimeout(function() {
+                                    statusDiv.style.display = 'none';
+                                }, 3000);
+                            }
+                        }
+                    }
+                    
+                    function goToQuickConnect(userId) {
+                        if (!userId) {
+                            showStatus('Please select or enter a user ID', true);
+                            return;
+                        }
+                        console.log('[QCH] Navigating to Quick Connect for user:', userId);
+                        window.location.href = '#!/quickconnect?userId=' + encodeURIComponent(userId);
+                    }
+                    
+                    Dashboard.showLoadingMsg();
+                    console.log('[QCH] Loading users from API');
+                    
+                    ApiClient.getUsers().then(function(users) {
+                        console.log('[QCH] Got', users.length, 'users');
+                        Dashboard.hideLoadingMsg();
+                        
+                        if (!users || users.length === 0) {
+                            userSelect.innerHTML = '<option value="">No users found</option>';
+                            showStatus('No users found', true);
+                            return;
+                        }
+                        
+                        var options = '<option value="">-- Select a User --</option>';
+                        users.forEach(function(user) {
+                            options += '<option value="' + user.Id + '">' + user.Name + '</option>';
+                            console.log('[QCH] User:', user.Name, '-', user.Id);
+                        });
+                        
+                        userSelect.innerHTML = options;
+                        goButton.disabled = false;
+                        showStatus('Loaded ' + users.length + ' users successfully', false);
+                        
+                    }).catch(function(error) {
+                        console.error('[QCH] Error loading users:', error);
+                        Dashboard.hideLoadingMsg();
+                        userSelect.innerHTML = '<option value="">Error loading users</option>';
+                        showStatus('Error: ' + (error.message || error), true);
+                    });
+                    
+                    goButton.addEventListener('click', function() {
+                        console.log('[QCH] Go button clicked');
+                        goToQuickConnect(userSelect.value);
+                    });
+                    
+                    manualGoButton.addEventListener('click', function() {
+                        var userId = manualUserId.value.trim();
+                        console.log('[QCH] Manual go clicked, ID:', userId);
+                        if (!userId) {
+                            showStatus('Please enter a user ID', true);
+                            return;
+                        }
+                        goToQuickConnect(userId);
+                    });
+                    
+                    userSelect.addEventListener('change', function() {
+                        goButton.disabled = !userSelect.value;
+                    });
+                });
+        </script>
+        
+        <!-- Load the Quick Connect Helper injection script -->
+        <script type="text/javascript">
+            (function() {
+                // Check if the script is already loaded
+                if (window.QuickConnectHelperInjected) {
+                    return;
+                }
+                window.QuickConnectHelperInjected = true;
+                
+                // Load the injection script
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = 'configurationpage?name=QuickConnectHelperJs';
+                document.head.appendChild(script);
+                
+                console.log('[QCH] Injection script loaded');
+            })();
+        </script>
+    </div>
+</body>
+</html>

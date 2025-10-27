@@ -1,0 +1,16 @@
+{
+  "category": "General",
+  "changelog": "Initial release",
+  "description": "Adds a convenient interface for administrators to quickly navigate to any user's Quick Connect settings without going through multiple dashboard menus.",
+  "guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "Quick Connect Helper",
+  "overview": "Helps admins quickly access Quick Connect for any user",
+  "owner": "YourName",
+  "targetAbi": "10.10.0.0",
+  "timestamp": "2025-10-25T00:00:00.0000000Z",
+  "version": "1.0.0.0",
+  "status": "Active",
+  "autoUpdate": false,
+  "imagePath": "",
+  "assemblies": []
+}
