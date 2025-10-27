@@ -1,5 +1,5 @@
 {
-  "category": "Authentication",
+  "category": "Administration",
   "guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "name": "Quick Connect Helper",
   "description": "Adds a convenient Quick Connect button to the web interface for easy device pairing with one-click code generation.",
@@ -15,4 +15,5 @@
       "timestamp": "2025-10-27T06:33:00Z"
     }
   ]
+
 }
