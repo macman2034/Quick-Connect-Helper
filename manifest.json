@@ -1,18 +1,20 @@
-{
-  "category": "Authentication",
-  "guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-  "name": "Quick Connect Helper",
-  "description": "Adds a convenient Quick Connect button to the web interface for easy device pairing with one-click code generation.",
-  "owner": "macman2034",
-  "overview": "Quick Connect Helper adds a dedicated button to Jellyfin's navigation bar, allowing users to instantly generate Quick Connect codes without navigating through settings. Perfect for quickly pairing new devices with your Jellyfin server.",
-  "versions": [
-    {
-      "version": "1.0.0.0",
-      "changelog": "Initial release with Quick Connect button, one-click code generation, Docker compatibility, and seamless UI integration.",
-      "targetAbi": "10.9.0.0",
-      "sourceUrl": "https://github.com/macman2034/Quick-Connect-Helper/releases/download/v1.0.0/Jellyfin.Plugin.QuickConnectHelper.dll",
-      "checksum": "231d3b4577219d70bcc308b46530ca7f",
-      "timestamp": "2025-10-27T06:33:00Z"
-    }
-  ]
-}
+[
+  {
+    "category": "Authentication",
+    "guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Quick Connect Helper",
+    "description": "Adds a convenient Quick Connect button to the web interface for easy device pairing with one-click code generation.",
+    "owner": "macman2034",
+    "overview": "Quick Connect Helper adds a dedicated button to Jellyfin's navigation bar, allowing users to instantly generate Quick Connect codes without navigating through settings. Perfect for quickly pairing new devices with your Jellyfin server.",
+    "versions": [
+      {
+        "version": "1.0.0.0",
+        "changelog": "Initial release with Quick Connect button, one-click code generation, Docker compatibility, and seamless UI integration.",
+        "targetAbi": "10.9.0.0",
+        "sourceUrl": "https://github.com/macman2034/Quick-Connect-Helper/releases/download/v1.0.0/Jellyfin.Plugin.QuickConnectHelper.dll",
+        "checksum": "231d3b4577219d70bcc308b46530ca7f",
+        "timestamp": "2025-10-27T06:33:00Z"
+      }
+    ]
+  }
+]
